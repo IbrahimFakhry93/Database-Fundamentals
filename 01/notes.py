@@ -177,3 +177,240 @@
 # *   - Represents the physical schema
 # *   - Explains how data is stored on hard disk
 # *   - Defines access paths to facilitate efficient searching
+
+# *====================================================================================
+
+
+# & Mapping in DBMS Architecture
+
+# ? Definition
+# * Mapping is the process of transferring requests and results between the three schema levels:
+# * - External Schema
+# * - Conceptual Schema
+# * - Physical Schema
+
+# ? Example Flow of a Data Request
+# * 1. End-user makes a request for a specific data through External Schema 1
+# * 2. External Schema forwards the request to the Conceptual Schema
+# * 3. Conceptual Schema identifies the relevant table for the requested data
+# *     and forwards the request to the Physical Schema
+# * 4. Physical Schema locates the data on the hard disk and processes the request on the disk
+# * 5. Physical Schema retrieves the required data and sends it back to the Conceptual Schema
+# * 6. Conceptual Schema passes the result to External Schema 1
+# * 7. External Schema displays the result to the end-user
+
+# ? Purpose of Mapping
+# * Ensures smooth communication between schema layers
+# * Allows abstraction and separation of concerns
+# * Supports data independence by isolating changes at each level
+
+# ? Key Benefit
+# * Changes in one schema (e.g., physical file location) do not require changes in other schemas
+# ^ Example:
+# *   - Moving a file in the Physical Schema does not affect the Conceptual or External Schemas
+# *   - Adding a new table in the Conceptual Schema only affects External Schemas that access it
+
+
+# *====================================================================================
+
+# & Advanced Data Types and Functions in DBMS
+
+# ? Traditional DBMS Data
+# * Initially supported only numbers and characters
+# * Focused on storing and retrieving structured, textual data
+
+# ? Support for Multimedia Data
+# * Modern DBMS can store images, audio, and video
+# * Each type has its own storage and retrieval mechanisms
+
+# ? Spatial Data
+# * Spatial data = data for maps and geographic systems
+# * GIS (Geographical Information System) integrates with DBMS to handle spatial data
+# * Enables specialized queries and operations on location-based data
+
+# ? Time-Series Data
+# * Data stored against time (e.g., stock market prices, timestamps)
+# ^ Examples:
+# *   - Share prices with start time and last price
+# *   - Snapshots of all shares at a specific time
+# ^ Benefits:
+# *   - Faster processing for time-based queries
+# *   - Specialized functions for time-series analysis
+# * Some DBMS provide built-in support for time-series data
+
+# ? Data Mining Functions
+# * Data mining = analyzing data to extract insights
+# * Common algorithms: clustering, classification, association rules
+# ^ Applications:
+# *   - E-commerce: segmenting customers into groups
+# *   - Marketing: targeting offers to specific customer segments
+# * Some DBMS include built-in data mining functions:
+# *   - Provide access to algorithms with minimal customization
+# *   - Useful for initial insights, even for small businesses
+# * Limitation: less flexibility to modify algorithms compared to dedicated tools or system for data mining and analysis
+
+# ? Key Takeaway
+# * Modern DBMS go beyond traditional data storage
+# * They support multimedia, spatial, time-series, and even data mining functions
+# * This expands their role from simple storage to advanced analytics and decision support
+
+# *=======================================================================================================
+
+# & Centralized Database Environments
+
+# ? Types of Centralized Database Environments
+# * Mainframe Environment
+# * Client-Server Environment (Two-Tier)
+# * Internet Computing Environment (Three-Tier / N-Tier)
+
+# ? Mainframe Environment
+# * One mainframe machine hosts both database server and application server
+# * Users connect via dummy terminals (no processing power, only request/response)
+# * All processing happens on the mainframe
+#! Problems:
+# *   - Single point of failure (database + application on one machine)
+# *   - High traffic → slow performance and response time
+# *   - If mainframe fails → all users disconnected
+
+# ? Client-Server Environment (Two-Tier)
+# ~ Two tiers:
+# *   - Database server (back-end)
+# *   - Client application (front-end, installed locally on each user machine)
+# * Client = "Thick Client" (application installed on every end-user machine)
+# ^ Advantages:
+# *   - Application not a single point of failure (only DB server is critical)
+# *   - Processing divided: client handles part of application logic, DB handles data
+#! Problems:
+# *   - Still a single point of failure at the database server
+# *   - High maintenance cost (updates must be applied on every client machine)
+# *   - Expensive for large organizations (e.g., 1000 users in a bank)
+
+# ? Internet Computing Environment (Three-Tier)
+# ~ Three tiers:
+# *   - Database server (back-end)
+# *   - Application server (middle tier)
+# *   - Thin client (front-end, accessed via browser or small applet)
+# ^ Advantages:
+# *   - Application logic centralized on application server
+# *   - Easier maintenance (update once on app server → all clients updated automatically)
+# *   - Lower client-side cost and support effort
+#! Problems:
+# *   - Still a single point of failure at the database server
+
+# ? N-Tier Architecture (Extension of Three-Tier)
+# * Multiple application servers in parallel (middle tier)
+# ^ Benefits:
+# *   - Load balancing: distribute users across servers
+# *   - Fault tolerance: if one app server fails, users rerouted to another
+# *   - Supports multiple applications (e.g., Finance app, HR app) connected to same DB
+#! Problems:
+# *   - Database server remains a single point of failure
+# *   - If DB server fails → entire system goes down
+
+# ? Summary
+# * Mainframe → single machine, high failure risk, slow performance
+# * Client-Server (Two-Tier) → thick clients, better distribution, but costly maintenance
+# * Three-Tier → thin clients, centralized app server, easier updates, but DB still critical
+# * N-Tier → multiple app servers for scalability and reliability, DB still single point of failure
+# *=======================================================================================================
+
+
+# & Distributed Database Environment
+
+# ? Definition
+# * A distributed database environment stores data across multiple servers/locations.
+# ~ Two main methods:
+# * Replication and Fragmentation.
+# * Goal: improve availability, reduce downtime, and support geographically separated users.
+
+# ? Benefits
+# * High availability → system continues running even if one server fails.
+# * as a server in a branch fails, the headquarter won't be affected
+# * Critical for systems where downtime = financial loss.
+# * Useful for organizations with branches in different locations.
+# * Reduces single point of failure compared to centralized databases.
+
+# ? Replication
+# * Concept: "Copy & Paste" of the database.
+# ^ Types:
+# !   - Full Replication → entire database copied to another server.
+# *       • Servers work back-to-back with heartbeat signals.
+# *       • If one fails, the other starts up and takes over automatically.
+# !  - Partial Replication → only part of the database is copied.
+# *        copy part of database and is set up and installed in a different separated server
+# *       • Example: branch office stores only relevant subset of database.
+# *       • Original database still holds all data and is updated regularly.
+# ^ Notes:
+# *   - Requires synchronization to keep replicas consistent.
+# *   - Increases availability but adds cost and complexity.
+
+# ? Fragmentation
+# * Concept: "Cut & Paste" of the database.
+# ^ Types:
+# !   - Horizontal Fragmentation → split by rows (records).
+# !   - Vertical Fragmentation → split by columns (attributes).
+# !   - Hybrid Fragmentation → combination of both.
+# ^ Constraints:
+# *   - Must preserve database rules, structure, and constraints.
+
+# * Each fragment stored on a different server but connected via a network.
+# ^ Benefits:
+# *   - No single point of failure (if one fragment fails, others still work).
+# *   - Each location stores only the data it needs.
+
+
+# ? Practical Considerations
+# * Each distributed node (replica or fragment) requires its own DBMS software and license.
+# ~ Choice between centralized vs distributed depends on:
+# *   - Business criticality of data
+# *   - Tolerance for downtime
+# *   - Budget for infrastructure and licenses
+# * If data is not critical → centralized DB may be sufficient.
+# * If high availability is essential → distributed DB is preferred.
+
+# & Categories of Distributed Databases
+
+# ? Homogeneous (Same Vendor)
+# * All database servers use the same DBMS vendor and version
+# * Easier to manage, configure, and maintain
+# * Consistent data models, query language, and tools
+# * Example: All servers running Microsoft SQL Server
+
+# ? Heterogeneous (Different Vendor)
+# * Database servers use different DBMS vendors or versions
+# * More complex to integrate and maintain
+# * Requires middleware or connectors to translate queries and data formats
+# * Example: One server running Oracle DB, another running MySQL, both part of the same distributed system
+
+# ? Key Point
+# * Homogeneous = simpler, unified environment
+# * Heterogeneous = flexible, but higher complexity and cost
+
+# ! Summary
+# * Distributed DB = Replication (copy) or Fragmentation (split).
+# * Solves single point of failure in centralized systems.
+# * Costs more but ensures uptime and resilience.
+# * Decision depends on business needs and trade-offs.
+
+# *=======================================================================================
+
+# & Database Fundamentals – Summary & Next Steps
+
+# ? Completed Topics
+# * Database fundamentals concepts
+# * Different models for database environments
+# * Cycle of creating and setting up a database
+
+# ? Upcoming Topics
+# ~ Database Life Cycle
+# ^ Conceptual Design
+# *   - Created using ER (Entity Relationship) diagrams
+# ^ Logical Design
+# *   - Converting conceptual design into logical schema
+# ^ Implementation in DBMS
+# *   - Converting logical design into actual DBMS structures
+# ^ Data Manipulation
+# *   - How to deal with and manipulate data inside DBMS
+# ^ Normalization
+# *   - Process to improve database design
+# *   - Ensures efficiency, stability, and reduced redundancy
