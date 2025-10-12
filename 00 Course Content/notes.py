@@ -14,7 +14,7 @@
 # * Apply normalization to data for effective, stable database design.
 # * Writing basic SQL statements, functions, queries, and data manipulation.
 
-#! Chapter 01
+#! Chapter 01: Introduction
 # * 1. Database concepts                                 2:55
 # * 2. Database systems Main components                  3:26
 # * 3. Database Users                                    4:10
@@ -25,24 +25,24 @@
 # * 8. Distributed Database Environment                  4:37
 # * 9. Conclusion                                        0:46
 
-#! Chapter 02
+#! Chapter 02: Entity Relationship Diagram (ERD)
 # * 1. Entity Relationship Modeling                      3:49
 # * 2. Entities & Attributes                             7:57
 # * 3. Relationship - degree                             2:29
 # * 4. Relationship - Cardinality ratio                  4:40
 # * 5. Relationship - Participation                      6:43
 
-#! Chapter 03
+#! Chapter 03: ERD Mapping to Tables
 # * 1. Mapping strong and weak entities                  7:02
 # * 2. Mapping Relationship Types                        6:29
 # * 3. Conclusion                                        2:15
 
-#! Chapter 04
+#! Chapter 04: Structured Query Language(SQL)
 # * 1. Database Schema & Constraints                     5:31
 # * 2. SQL - Data Definition Language (DDL)              2:15
 # * 3. SQL - Data Control Language (GRANT, REVOKE)       2:38
 
-#! Chapter 05
+#! Chapter 05: Data Manipulation Language (DML)
 # * 1. INSERT Command                                    2:51
 # * 2. UPDATE Command                                    1:43
 # * 3. DELETE Command, TRUNCATE                          3:28
@@ -60,11 +60,11 @@
 # * 15. Group by & Having                                2:06
 # * 16. SELECT conclusion                                6:22
 
-#! Chapter 06
+#! Chapter 06: SQL-other DB objects
 # * 1. Views (create, modify, remove, types)             7:24
 # * 2. Indexes                                           6:14
 
-#! Chapter 07
+#! Chapter 07: Normalization
 # * 1. What is Normalization?                            4:17
 # * 2. Functional Dependency                             3:31
 # * 3. First Normal Form                                 3:29
