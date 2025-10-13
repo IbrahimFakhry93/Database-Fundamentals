@@ -133,11 +133,11 @@
 # ^ Syntax:
 # *   GRANT privilege(s) ON object TO user [WITH GRANT OPTION];
 # ^ Examples:
-# *   GRANT SELECT ON Employees TO Ahmed;
+# ~   GRANT SELECT ON Employees TO Ahmed;
 # *       → Ahmed can only view (SELECT) data from Employees table
-# *   GRANT ALL ON Department TO Mary, Ahmed;
+# ~   GRANT ALL ON Department TO Mary, Ahmed;
 # *       → Mary and Ahmed can SELECT, INSERT, UPDATE, DELETE on Department
-# *   GRANT SELECT ON Employees TO Ahmed WITH GRANT OPTION;
+# ~   GRANT SELECT ON Employees TO Ahmed WITH GRANT OPTION;
 # *       → Ahmed can SELECT from Employees AND grant this privilege to other users
 
 # ? REVOKE Command
@@ -145,9 +145,9 @@
 # ^ Syntax:
 # *   REVOKE privilege(s) ON object FROM user;
 # ^ Examples:
-# *   REVOKE UPDATE ON Department FROM Mary;
+# ~   REVOKE UPDATE ON Department FROM Mary;
 # *       → Removes UPDATE privilege on Department from Mary
-# *   REVOKE ALL ON Department FROM Mary, Ahmed;
+# ~   REVOKE ALL ON Department FROM Mary, Ahmed;
 # *       → Removes all DML privileges on Department from both users
 
 # ? Key Notes
