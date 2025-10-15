@@ -1,4 +1,5 @@
 #!
+#! Lec 01: Entity Relationship Modeling
 # & Entity-Relationship (ER) Modeling
 
 # ? Definition
@@ -13,7 +14,7 @@
 # *   - ITI: Student entity with attributes (Name, Graduation Year, Faculty, Grades).
 # *   - Subject entity with attributes (Code, Number of Hours, Prerequisites).
 # ^ Note:
-# * A supermarket customer is not an entity if no data is stored about them.
+# ! A supermarket customer is not an entity if no data is stored about them.
 
 # ? Attributes
 # * Characteristics that describe an entity.
@@ -139,11 +140,11 @@
 # * Example: Employee "has" Contract
 
 # ? Unary / Recursive Relationships (Entity with itself)
-# ^ Example: Employee "supervises" Employee
+# ~ Example: Employee "supervises" Employee
 # * Relationship connects the same entity from both sides.
 
 # ? Ternary Relationships (3 entities)
-# * Example: Employee, Project, Skill
+# ~ Example: Employee, Project, Skill
 # * Relationship: "Skilled Use"
 # ^ Meaning: An employee joins a project based on a specific skill.
 
@@ -164,7 +165,7 @@
 # * Expressed as: 1 (one) or M (many).
 
 # ? Employee – Department (Work)
-# * Question: Can an employee work in one or more departments?
+# ^ Question: Can an employee work in one or more departments?
 # * Rule: Employee works in only one department → "1"
 # * Department has many employees → "M"
 # ! Cardinality: 1 : M (One-to-Many)
@@ -208,7 +209,7 @@
 # *   - Project can use many skills → "M"
 # ! Cardinality: M : M : M (Many-to-Many-to-Many)
 # ^ Note:
-# *        If ternary has inconsistent ratios (e.g., "1" on one side, "M" on another),
+# *       If ternary has inconsistent ratios (e.g., "1" on one side, "M" on another),
 # *       redesign into 3 binary relationships.
 
 # ? Key Ratios
@@ -225,7 +226,7 @@
 # * Cardinality in ternary means the MAXIMUM participation per entity, considering the other two together.
 # * Practical modeling often starts by “thinking in pairs,” but true constraints are 3-way, not just binary.
 
-# & Example: Employee–Project–Skill (meaning: an employee joins a project using a specific skill)
+# ^ Example: Employee–Project–Skill (meaning: an employee joins a project using a specific skill)
 
 # ? Pairwise reasoning (to build intuition)
 # * Employee–Project: An employee can work on MANY projects; a project has MANY employees → M : M
@@ -233,7 +234,7 @@
 # * Skill–Project: A skill can be used in MANY projects; a project uses MANY skills → M : M
 # * Conclusion (pairwise): All sides suggest “Many” → candidate ternary = M : M : M
 
-# & Ternary cardinality consistency rule
+# ^ Ternary cardinality consistency rule
 # ? Consistency requirement
 # * The cardinality on each branch (for each entity) should be compatible.
 # * If one side is “1” while the others are “M”, the ternary often becomes ambiguous or incorrect.
@@ -242,7 +243,7 @@
 # * If you get a mix like 1 on one side and M on others, REFACTOR the model:
 # * Convert the ternary into THREE BINARY relationships (with an associative entity) to capture constraints precisely.
 
-# & Deep insight: Ternary constraints are 3-way, not just pairwise
+# ~ Deep insight: Ternary constraints are 3-way, not just pairwise
 # ? Why pairwise is insufficient
 # * Even if all pairwise are M : M, the true constraint might say: for a GIVEN (Employee, Project) there is ONE Skill.
 # * This cannot be fully enforced with three separate binaries unless you introduce a composite uniqueness (associative entity).
@@ -253,7 +254,7 @@
 # *   - Composite key could be (Employee, Project, Skill) for M:M:M.
 # *   - If business rule says “one skill per (Employee, Project)”, then enforce UNIQUE (Employee, Project).
 
-# & ASCII illustration (ternary diamond)
+# ^ ASCII illustration (ternary diamond)
 # ? Visual guide
 # *                [Project]
 # *                 /  M  \
@@ -264,7 +265,7 @@
 # *         [Employee] —— M —— [Skill]
 # * Legend: ◇ = relationship; M labels show many on all three sides (M:M:M)
 
-# & Cardinality summary and reminder
+# ^ Cardinality summary and reminder
 # ? Cardinality options
 # * One-to-One (1:1), One-to-Many (1:M), Many-to-Many (M:N); ternary extends to M:M:M or constrained mixes.
 
@@ -283,9 +284,11 @@
 # ? Definition of Participation
 # * Participation = minimum number of relationships an entity instance must take part in.
 # * Opposite of cardinality (which defines maximum).
+
 # ^ Represented as:
 # *   - "Must" → double line
 # *   - "May" → single line
+
 # ~ Participation depends on business rules and scenarios.
 
 # ? Examples of Participation
@@ -307,7 +310,7 @@
 # ^ Employee – Dependent (Has)
 # *   - Employee may have dependents → "May"
 # *   - Each dependent must belong to an employee → "Must"
-# *   - Weak entity rule: participation from weak entity side is always "Must"
+# ~   - Weak entity rule: participation from weak entity side is always "Must"
 
 # ^ Employee – Employee (Supervise, recursive)
 # *   - Not all employees supervise others → "May"
@@ -333,7 +336,7 @@
 # ^ Example:
 # * Dependent (weak entity) depends on Employee (owner).
 
-# ? Attributes on Relationships
+# ! Attributes on Relationships
 # * Sometimes attributes belong to relationships, not entities.
 # ~ Example 1: "Start Date" of Employee managing Department.
 # *   - Not attribute of Employee or Department.

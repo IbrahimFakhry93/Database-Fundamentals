@@ -13,7 +13,7 @@
 # *   - Not Null (cannot be empty)
 
 # ? Rule 1: Each Entity → Table
-# * Example: Employee entity → Employee table
+# ^ Example: Employee entity → Employee table
 # * Columns = attributes of the entity
 
 # ? Mapping Attributes
@@ -29,7 +29,7 @@
 
 # ? Handling Multi-Valued Attributes
 # ! Problem: Domain allows only one value per cell
-# * Solution: Create a new table for the multi-valued attribute
+# ~ Solution: Create a new table for the multi-valued attribute
 # ^ Example: Employee Phone table
 # *   - Columns: SSN (FK), Phone
 # *   - Composite Primary Key = (SSN, Phone)
@@ -38,7 +38,7 @@
 
 # ? Handling Derived Attributes
 # * Default: Do NOT store (calculated on demand)
-# * Reason: Storing slows performance (recalculation needed on updates)
+# ^ Reason: Storing slows performance (recalculation needed on updates)
 # ! Exception: Store only if frequently queried or used in reporting
 # * Example: Age derived from DOB (Date of Birth)
 
@@ -72,56 +72,57 @@
 
 # ? One-to-Many Relationships (Binary or Unary)
 # ^ Rule: Add the primary key of the "One" side as a foreign key in the "Many" side.
-# ~ Example: Department (1) → Employee (M)
+
+# ~ Example (Binary): Department (1) → Employee (M)
 # *   - DepartmentNo (PK) added as FK in Employee table.
 # ~ Reason:
 # *  Each employee belongs to one department, but a department has many employees.
 # ! If reversed, would require multiple employee IDs in one department row → violates domain rule.
 
-# ? Unary (Recursive) One-to-Many
+# ~ Unary (Recursive) One-to-Many
 # ^ Example: Employee supervises Employee
-# *   - Add Employee SSN (PK) as FK in the same Employee table.
+# *   - Add Employee (Supervisor) SSN (PK) as FK in the same Employee table.
 # *   - Rename FK to avoid confusion (e.g., SupervisorSSN).
-# *   - No redundancy: FK represents supervisor relationship, not duplicate data.
+# ~   - No redundancy: FK represents supervisor relationship, not duplicate data.
 
 # ? One-to-Many with Weak Entity
 # ^ Example: Employee (1) → Dependent (M)
 # *   - Employee SSN (PK) already added as FK in Dependent table.
-# *   - Mapping weak entity automatically maps identifying relationship.
+# !   - Mapping weak entity automatically maps identifying relationship.
 
 # ? Many-to-Many Relationships
 # * Rule: Create a new table with PKs of both entities as FKs.
-# * Example: Employee ↔ Project
+# ^ Example: Employee ↔ Project
 # *   - New table: WorkOn(EmployeeSSN [FK], ProjectNo [FK])
 # *   - Composite PK = (EmployeeSSN, ProjectNo)
 # * Relationship Attributes: Add them to the new table.
 # *   - Example: Hours (attribute of WorkOn relationship).
 
 # ? One-to-One Relationships
-# * Case 1: May–Must
-# *   - Rule: Add PK of "May" side as FK in "Must" side.
-# *   - Example: Manage (Employee–Department)
+# ^ Case 1: May–Must
+# ~  - Rule: Add PK of "May" side as FK in "Must" side.
+# *      - Example: Manage (Employee–Department)
 # *       • Employee SSN (PK) added as FK in Department table.
 # *       • Rename FK → ManagerSSN.
 # *       • Relationship attribute (StartDate) also added to Department.
 
-# * Case 2: May–May
-# *   - Rule: Three options:
+# ^ Case 2: May–May
+# ~   - Rule: Three options:
 # *       1. Add PK of Car as FK in Employee
 # *       2. Add PK of Employee as FK in Car
 # *       3. Create new table with both PKs as FKs
 # *   - Example: Own (Employee–Car)
 # *       • Recommended: Add Car PlateNo (PK) as FK in Employee.
 
-# * Case 3: Must–Must
-# *   - Rule: Merge both tables into one.
-# *   - Example: Has (Employee–Contract)
+# ^ Case 3: Must–Must
+# ~   - Rule: Merge both tables into one.
+# ?   - Example: Has (Employee–Contract)
 # *       • Merge Contract into Employee table.
 # *       • Keep SSN as PK (equivalent to ContractID).
 # *       • If Contract referenced elsewhere, use SSN as FK.
 
 # ? Ternary Relationships
-# * Rule: Always create a new table with PKs of all participating entities as FKs.
+# ~ Rule: Always create a new table with PKs of all participating entities as FKs.
 # * Example: Employee–Project–Skill
 # *   - New table: SkillsUsed(EmployeeSSN [FK], ProjectNo [FK], SkillID [FK])
 # *   - Composite PK = (EmployeeSSN, ProjectNo, SkillID)
@@ -153,7 +154,7 @@
 # ? Step 2: Mapping Relationships
 # * One-to-Many (Binary/Unary) → PK of "One" side becomes FK in "Many" side
 # * Many-to-Many → create new table with PKs of both entities as FKs
-# * One-to-One:
+# ^ One-to-One:
 # *   - May–Must → PK of "May" side becomes FK in "Must" side
 # *   - May–May → PK of either side can be FK in the other
 # *   - Must–Must → merge both tables into one

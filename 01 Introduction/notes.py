@@ -30,7 +30,7 @@
 # * Incompatible file formats → Word vs Excel issue
 
 # ? Emergence of Databases
-# * Database = collection of related data (common relation)
+# * Database = collection of related data (common relations)
 # * Solves duplication, isolation, and compatibility issues
 
 # ? Database Management System (DBMS)
@@ -87,6 +87,7 @@
 # * DBMS provides control, security, integrity, and recovery but comes with cost & complexity
 
 # *===========================================================
+#! Lec 03: Database Users
 
 #! Database Users and the Cycle of Creating a Database
 
@@ -124,6 +125,7 @@
 # * - Test the entire system (DB + UI)
 # * - Train end-users on how to use the application
 
+#! Mentor:
 #! Roles of Database Users
 # * System Analyst → gathers requirements, analyzes customer needs
 # * Database Designer → converts requirements into data models and tables
@@ -134,6 +136,7 @@
 
 # *===========================================================================
 
+#! Lec 04: DBMS Architecture, Data Models
 # & Database Management System (DBMS) Architecture
 
 # ? Three-Schema Architecture
@@ -147,7 +150,7 @@
 # ~ Example:
 # *   - Financial schema → accessed by Finance department
 # *   - HR schema → accessed by HR department
-# * Provides customized views of the database for different user groups
+# ^ Provides customized views of the database for different user groups
 
 # ? Conceptual Schema
 # * Contains all tables and relationships between data
@@ -156,7 +159,7 @@
 
 # ? Physical Schema
 # * Explains how data is stored on disk (explains allocation of the data on the disk)
-# * The data at the end  is a group of files stored on my hard disk
+# * The data at the end is a group of files stored on the hard disk
 # * Identifies physical file paths and storage locations (files location in the hard disk)
 # * Tracks allocated space, free space, and used space
 # * Works as a map of how data is distributed across the hard disk
@@ -167,7 +170,7 @@
 # ~ Example:
 # *   - Changing file location in physical schema → no effect on conceptual or external schemas
 # *   - Adding a new table in conceptual schema → only external schemas that use or access this table should be affected
-# * Ensures flexibility and stability for users and applications
+# ^ Ensures flexibility and stability for users and applications
 
 # ? Data Models
 # ^ Conceptual Data Model
@@ -180,11 +183,11 @@
 
 # *====================================================================================
 
-
+#! lec 05: Mappings
 # & Mapping in DBMS Architecture
 
 # ? Definition
-# * Mapping is the process of transferring requests and results between the three schema levels:
+# ^ Mapping is the process of transferring requests and results between the three schema levels:
 # * - External Schema
 # * - Conceptual Schema
 # * - Physical Schema
@@ -213,6 +216,7 @@
 
 # *====================================================================================
 
+#! Lec 06: DBMS other functions
 # & Advanced Data Types and Functions in DBMS
 
 # ? Traditional DBMS Data
@@ -247,7 +251,7 @@
 # * Some DBMS include built-in data mining functions:
 # *   - Provide access to algorithms with minimal customization
 # *   - Useful for initial insights, even for small businesses
-# * Limitation: less flexibility to modify algorithms compared to dedicated tools or system for data mining and analysis
+# ! Limitation: less flexibility to modify algorithms compared to dedicated tools or system for data mining and analysis
 
 # ? Key Takeaway
 # * Modern DBMS go beyond traditional data storage
@@ -255,6 +259,7 @@
 # * This expands their role from simple storage to advanced analytics and decision support
 
 # *=======================================================================================================
+#! Lec 07: Centralized Database Environment
 
 # & Centralized Database Environments
 
@@ -314,13 +319,15 @@
 # * N-Tier → multiple app servers for scalability and reliability, DB still single point of failure
 # *=======================================================================================================
 
+#! Mentor: IS it will be my responsibility to decide whether system to use
+#! Lec 08: Distributed Database Environment
 
 # & Distributed Database Environment
 
 # ? Definition
 # * A distributed database environment stores data across multiple servers/locations.
 # ~ Two main methods:
-# * Replication and Fragmentation.
+# ^ Replication and Fragmentation.
 # * Goal: improve availability, reduce downtime, and support geographically separated users.
 
 # ? Benefits
@@ -362,9 +369,9 @@
 # ? Practical Considerations
 # * Each distributed node (replica or fragment) requires its own DBMS software and license.
 # ~ Choice between centralized vs distributed depends on:
-# *   - Business criticality of data
-# *   - Tolerance for downtime
-# *   - Budget for infrastructure and licenses
+# ^   - Business criticality of data
+# ^   - Tolerance for downtime
+# ^   - Budget for infrastructure and licenses
 # * If data is not critical → centralized DB may be sufficient.
 # * If high availability is essential → distributed DB is preferred.
 
