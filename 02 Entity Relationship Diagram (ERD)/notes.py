@@ -36,7 +36,7 @@
 # * 5. Represent entities, attributes, and relationships in the ER diagram.
 
 # ? Key Point
-# * Database = group of related data.
+# * Database = collection or group of related data.
 # * ERD ensures entities are connected logically through relationships.
 
 # *==================================================================================
@@ -56,7 +56,7 @@
 # *   - Name
 # *   - Email
 # *   - Salary (simple attribute)
-# *   - Phone (multi-valued attribute → can store multiple numbers)
+# *   - Phone (multi-valued attribute → can store multiple numbers -> represented as double oval shape)
 # *   - Address (composite attribute → Street, Zone)
 # *   - Date of Birth (DOB)
 # *   - Age (derived attribute → calculated from DOB + current date)
@@ -67,12 +67,12 @@
 # *   - Department Name
 # *   - Location
 
-# ? Entity: Project
+# ? Entity: Project (the company is project based)
 # ^ Attributes:
 # *   - Project Number (unique identifier)
 # *   - Project Name
 
-# ? Entity: Dependent
+# ? Entity: Dependent (To provide medical coverage to the employee's relatives)
 # ^ Attributes:
 # *   - Name
 # *   - Relation
@@ -82,7 +82,7 @@
 # *   - Existence depends on Employee entity
 # *   - Represented with double rectangle in ERD
 
-# ? Entity: Car
+# ? Entity: Car (for garage)
 # ^ Attributes:
 # *   - Plate Number
 # *   - Model
@@ -107,12 +107,13 @@
 
 # ? Keys
 # * Candidate Key → attribute(s) that can uniquely identify an entity
+# * Make the candidate key name on the diagram as underlined
 # ~ Example:
 # *   - Employee: ID, SSN
 # *   - Department: Department Number
 # *   - Project: Project Number
-# * Weak Entity → no unique identifier, depends on another entity (e.g., Dependent)
-
+# * Weak Entity → no unique identifier (no key attribute), its existence depends on another entity (e.g., Dependent)
+# * Strong Entity -> has unique identifier
 
 # *================================================================================================
 
@@ -123,7 +124,7 @@
 # ? Relationship Basics
 # * Relationships connect data of different entities.
 # ^ Each relationship must define:
-# *   1. Degree of Relationship → number of entities involved
+# *   1. Degree of Relationship → number of entities involved in the relationship
 # *   2. Cardinality Ratio → how many instances of one entity relate to another
 # *   3. Participation → whether all or some entity instances participate
 
@@ -131,7 +132,7 @@
 # * Represented by a diamond shape in ERD.
 # * Relationship names are expressed as verbs (e.g., Work, Manage, Has, Own).
 
-# ? Binary Relationships (2 entities)
+# ? Degree: Binary Relationships (2 entities)
 # * Example: Employee "works in" Department
 # * Example: Employee "manages" Department
 # * Example: Employee "has" Dependent
@@ -139,11 +140,11 @@
 # * Example: Employee "owns" Car
 # * Example: Employee "has" Contract
 
-# ? Unary / Recursive Relationships (Entity with itself)
+# ? Degree: Unary / Recursive Relationships (Relation of Entity with itself)
 # ~ Example: Employee "supervises" Employee
-# * Relationship connects the same entity from both sides.
+# * Relationship connects the same entity from both sides. (two sides of diamond shape on the diagram)
 
-# ? Ternary Relationships (3 entities)
+# ? Degree: Ternary Relationships (3 entities)
 # ~ Example: Employee, Project, Skill
 # * Relationship: "Skilled Use"
 # ^ Meaning: An employee joins a project based on a specific skill.
@@ -158,7 +159,7 @@
 #! Lec 04: Relationship - Cardinality ratio
 
 
-# & Cardinality Ratios in Relationships
+# & Cardinality Ratios in Relationships  ()
 
 # ? Definition
 # * Cardinality ratio = maximum number of relationships an entity instance can participate in.
@@ -201,7 +202,8 @@
 # ! Cardinality: 1 : 1 (One-to-One)
 
 # ? Ternary Relationship (Employee – Project – Skill)
-# * we study it as three binary relation ships, every two we study them separately
+# * we study it as three binary relationships, every two we study them separately, then set for each its cardinality
+# * means: assume that we have three (binary) relationships
 # ~ Rule:
 # *   - Employee can use many skills → "M"
 # *   - Skill can be used by many employees → "M"
@@ -282,6 +284,8 @@
 # & Participation, Identifying Relationships, and Relationship Attributes
 
 # ? Definition of Participation
+# * Specifies the minimum number of relationship instances that each entity can participate with
+
 # * Participation = minimum number of relationships an entity instance must take part in.
 # * Opposite of cardinality (which defines maximum).
 
@@ -330,9 +334,9 @@
 # *   - Employees must use skills in projects → "Must"
 # *   - Participation = Must–Must–Must
 
-# ? Identifying Relationships
+# ? Identifying Relationships (weak and owner relationship)
 # * Relationship between a weak entity and its owner entity.
-# * Represented with a double line.
+# * Represented with a double line diamond.
 # ^ Example:
 # * Dependent (weak entity) depends on Employee (owner).
 

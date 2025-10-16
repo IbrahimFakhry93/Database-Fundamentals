@@ -1,7 +1,7 @@
 #
 #! Lec 01: Mapping of strong (regular) and weak entities
 
-# & Converting Conceptual Design (ERD) into Logical Design (Relations)
+# & Converting Conceptual Design (ERD) into Logical Design (Relations == DB tables)
 
 # ? Relational Database Basics
 # * A relation = a table consisting of:
@@ -53,7 +53,7 @@
 # ^  Example: Dependent (weak entity)
 # *   - Includes attributes: Name, Relation
 # *   - Must include owner’s PK (Employee SSN) as FK
-# *   - Composite Primary Key = (SSN, Name) or (SSN, Name, Relation)
+# *   - Composite Primary Key = (SSN, Name)
 # *   - Ensures uniqueness and dependency on Employee
 
 # ? Summary of Steps
@@ -91,39 +91,43 @@
 # !   - Mapping weak entity automatically maps identifying relationship.
 
 # ? Many-to-Many Relationships
-# * Rule: Create a new table with PKs of both entities as FKs.
-# ^ Example: Employee ↔ Project
+# ^ Rule: Create a new table with PKs of both entities as FKs.
+
+# ~ Example: Employee ↔ Project
 # *   - New table: WorkOn(EmployeeSSN [FK], ProjectNo [FK])
 # *   - Composite PK = (EmployeeSSN, ProjectNo)
-# * Relationship Attributes: Add them to the new table.
-# *   - Example: Hours (attribute of WorkOn relationship).
+# ~ Relationship Attributes:
+# * Relation Attribute always follows the pre-added foreign keys (which are in this case: PK of EmployeeSSN and ProjectNo)
+# TODO   - Example: Hours (attribute of WorkOn relationship).
+# *  Add them to the new relationship table (workOn table).
+
 
 # ? One-to-One Relationships
 # ^ Case 1: May–Must
 # ~  - Rule: Add PK of "May" side as FK in "Must" side.
-# *      - Example: Manage (Employee–Department)
+# &   - Example: Manage (Employee–Department)
 # *       • Employee SSN (PK) added as FK in Department table.
 # *       • Rename FK → ManagerSSN.
-# *       • Relationship attribute (StartDate) also added to Department.
+# *       • Relationship attribute (StartDate) also added to Department table.
 
 # ^ Case 2: May–May
 # ~   - Rule: Three options:
 # *       1. Add PK of Car as FK in Employee
 # *       2. Add PK of Employee as FK in Car
-# *       3. Create new table with both PKs as FKs
-# *   - Example: Own (Employee–Car)
-# *       • Recommended: Add Car PlateNo (PK) as FK in Employee.
+# *       3. Create new table (own) with both PKs as FKs
+# &   - Example: Own (Employee–Car)
+# !       • Recommended: Add Car PlateNo (PK) as FK in Employee.
 
 # ^ Case 3: Must–Must
 # ~   - Rule: Merge both tables into one.
 # ?   - Example: Has (Employee–Contract)
 # *       • Merge Contract into Employee table.
 # *       • Keep SSN as PK (equivalent to ContractID).
-# *       • If Contract referenced elsewhere, use SSN as FK.
+# *       • If Contract referenced elsewhere, use SSN as FK. (watch video 5:40)
 
 # ? Ternary Relationships
 # ~ Rule: Always create a new table with PKs of all participating entities as FKs.
-# * Example: Employee–Project–Skill
+# ^ Example: Employee–Project–Skill
 # *   - New table: SkillsUsed(EmployeeSSN [FK], ProjectNo [FK], SkillID [FK])
 # *   - Composite PK = (EmployeeSSN, ProjectNo, SkillID)
 # *   - Relationship attributes (if any) also added here.
