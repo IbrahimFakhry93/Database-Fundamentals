@@ -91,7 +91,7 @@
 # !   - Mapping weak entity automatically maps identifying relationship.
 
 # ? Many-to-Many Relationships
-# ^ Rule: Create a new table with PKs of both entities as FKs.
+# ^ Rule: Create a new table (junction table) with PKs of both entities as FKs.
 
 # ~ Example: Employee ↔ Project
 # *   - New table: WorkOn(EmployeeSSN [FK], ProjectNo [FK])
@@ -157,7 +157,7 @@
 
 # ? Step 2: Mapping Relationships
 # * One-to-Many (Binary/Unary) → PK of "One" side becomes FK in "Many" side
-# * Many-to-Many → create new table with PKs of both entities as FKs
+# * Many-to-Many → create new junction table with PKs of both entities as FKs
 # ^ One-to-One:
 # *   - May–Must → PK of "May" side becomes FK in "Must" side
 # *   - May–May → PK of either side can be FK in the other

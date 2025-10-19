@@ -168,51 +168,88 @@
 # ? Employee – Department (Work)
 # ^ Question: Can an employee work in one or more departments?
 # * Rule: Employee works in only one department → "1"
+
+# ^ Question: Can department have one employee or more than one employee?
 # * Department has many employees → "M"
 # ! Cardinality: 1 : M (One-to-Many)
 
 # ? Employee – Department (Manage)
+# ^ Does employee manage one department or more than one department?
 # * Rule: One employee manages one department → "1"
+
+# ^ Is department managed by one employee or more than one employee?
 # * One department managed by one employee → "1"
 # ! Cardinality: 1 : 1 (One-to-One)
 
 # ? Employee – Project (Work On)
+# ^ Does employee work on one project or more than one projects?
 # * Rule: Employee can work on many projects → "M"
+# ^ Does project have one employee or more than one employee?
 # * Project has many employees → "M"
 # ! Cardinality: M : N (Many-to-Many)
 
 # ? Employee – Employee (Supervise) [Unary/Recursive]
+# ^ Does employee supervise one employee or more than one employee?
 # * Rule: One employee can supervise many employees → "M"
+
+# ^ Are employees managed by one supervisor or more than one supervisor?
 # * Each employee supervised by only one supervisor → "1"
 # ! Cardinality: 1 : M (One-to-Many, recursive)
 
 # ? Employee – Dependent (Has)
+# ^ Does emp have one dependent or more than one dependent?
 # * Rule: Employee can have many dependents → "M"
+
+# ^ Do dependents belong to one employee or more than one employee?
 # * Each dependent belongs to only one employee → "1"
 # ! Cardinality: 1 : M (One-to-Many)
 
 # ? Employee – Car (Own)
+# ^ Does employee have one car or more than one car?
 # * Rule: Each employee owns one car → "1"
+
+# ^ Does car belong to one employee or more than employee?
 # * Each car owned by one employee → "1"
 # ! Cardinality: 1 : 1 (One-to-One)
 
 # ? Employee – Contract (Has)
+# ^ Does employee have one contract or more than contract?
 # * Rule: Each employee has one contract → "1"
+
+# ^ Does contract belong to one employee or more than employee?
 # * Each contract belongs to one employee → "1"
 # ! Cardinality: 1 : 1 (One-to-One)
 
 # ? Ternary Relationship (Employee – Project – Skill)
 # * we study it as three binary relationships, every two we study them separately, then set for each its cardinality
 # * means: assume that we have three (binary) relationships
+
+# * When asking the questions to define the cardinality and the participation,
+# * we try to involve the three entities in the question
+
 # ~ Rule:
+# ^ Can Employee use many skills in the same project?
 # *   - Employee can use many skills → "M"
+
+# ^ Can Employee work in one project or more than one project using the required skills?
+# *  - Employee can wor in many projects -> "M" using the required skills
+
+# ^ Is skill used by one employee or more than one employee in the same project?
 # *   - Skill can be used by many employees → "M"
+# ^ Is skill used in one project or in more than one project by the employee?
 # *   - Skill can be used in many projects → "M"
+
+# ^ Does project use one skill or more than skills by the employees?
 # *   - Project can use many skills → "M"
+
+# ^ Does project have one employee or more than one employee with the required skills?
+# *    - Project have many employees with the required skills
+
 # ! Cardinality: M : M : M (Many-to-Many-to-Many)
+
 # ^ Note:
-# *       If ternary has inconsistent ratios (e.g., "1" on one side, "M" on another),
-# *       redesign into 3 binary relationships.
+# * If ternary has inconsistent ratios (e.g., "1" on one side, "M" on another),
+# * redesign into 3 binary relationships.
 
 # ? Key Ratios
 # * One-to-One (1:1)
@@ -298,41 +335,66 @@
 # ? Examples of Participation
 
 # ^ Employee – Department (Work)
-# *   - Must employee work in a department? → Depends on business rule.
+# ~   - Must employee work in a department? → Depends on business rule.
 # *   - If optional → "May"
-# *   - Department may exist without employees (new department) → "May"
+# *    in our case, employee must work in a department -> "Must"
+
+# ~    - Must department have employee?
+# *   - Department may exist without employees (new department, recruitment in process ) → "May"
 
 # ^ Employee – Department (Manage)
+# ~    - Must department have manager?
 # *   - Each department must have a manager → "Must"
+
+# ~    - Must all employees become manager?
 # *   - Not all employees are managers → "May"
 
 # ^ Employee – Project (Work On)
+# ~   - Must all employees work on projects?
 # *   - Not all employees work on projects (e.g., HR, Security) → "May"
-# *   - Project may exist without employees (tender stage) → "May"
+
+# ~   - Must all projects have employees?
+# *   - Project may exist without employees (tender stage) → "May" (same in our case)
 # *   - Alternative business case: project must have employees → "Must"
 
 # ^ Employee – Dependent (Has)
+# ~    - Must all Employees have dependents?
 # *   - Employee may have dependents → "May"
+
+# ~   - Must dependent belong to an employee?
 # *   - Each dependent must belong to an employee → "Must"
-# ~   - Weak entity rule: participation from weak entity side is always "Must"
+#!    - Weak entity rule: participation from weak entity side is always "Must"
 
 # ^ Employee – Employee (Supervise, recursive)
+# ~    - Must all employees supervise others?
 # *   - Not all employees supervise others → "May"
+
+# ~    - Must all employee have supervisor?
 # *   - Not all employees have supervisors (e.g., CEO) → "May"
 
 # ^ Employee – Car (Own)
+# ~    - Must employee own a car?
 # *   - Employee may own a car → "May"
-# *   - Car may not belong to an employee (company-owned) → "May"
+
+# ~    - Must car belong to an employee?
+# *   - Car may not belong to an employee (company-owned car) → "May"
 
 # ^ Employee – Contract (Has)
+# ~    - Must each contract belong to an employee?
 # *   - Each contract must belong to an employee → "Must"
+
+# ~    - Must each employee have a contract?
 # *   - Each employee must have a contract → "Must"
 
 # ^ Ternary Relationship (Employee – Project – Skill)
+# TODO : try to involve all the three entities in the questions?
+# ~    -Must project have employees with skills?
 # *   - Project must have employees with skills → "Must"
+# ~    - Must skills be used in projects by the employees?
 # *   - Skills must be used in projects → "Must"
+# ~    - Must employees use the skills in projects?
 # *   - Employees must use skills in projects → "Must"
-# *   - Participation = Must–Must–Must
+# !   - Participation = Must–Must–Must
 
 # ? Identifying Relationships (weak and owner relationship)
 # * Relationship between a weak entity and its owner entity.
