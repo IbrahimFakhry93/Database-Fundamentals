@@ -2,6 +2,8 @@
 
 #! Lec 01: What is Normalization?
 
+# * Normalization is very important topic in interviews
+
 # & Database Normalization
 
 # ? Definition
@@ -15,7 +17,7 @@
 # * Reduces redundancy → avoids repeating the same data multiple times
 # * Improves storage efficiency and database performance
 # * Prevents anomalies (Insert, Update, Delete)
-# * Reduces excessive NULL values
+# * Reduces excessive (frequent) NULL values
 
 # ? Example – Poor Design
 # * Tables: Employee_Department, Employee_Project
@@ -39,7 +41,7 @@
 # *   - If manager is missing → 100 NULL values appear in column
 
 # ? Benefits of Normalization
-# * Avoids redundancy and anomalies (الشذوذ)
+# * Avoids redundancy and anomalies
 # * Ensures data consistency
 # * Improves performance by reducing unnecessary repetition
 # * Provides cleaner, more flexible design
@@ -66,7 +68,7 @@
 # * PNumber → PName, PLocation
 # *   Each project number determines its project name and location.
 # * (SSN, PNumber) → Hours
-# *   Combination of employee SSN and project number determines hours worked.
+# *   Combination of employee SSN and project number determines hours worked by the employee on the project
 
 # ? Types of Functional Dependency
 
@@ -224,12 +226,12 @@
 # * No multivalued attributes
 # * No repeating groups
 # * No composite attributes
-# * Solution: move multivalued/repeating groups into separate tables with PK as FK.
+# ~ Solution: move multivalued/repeating groups into separate tables with PK as FK.
 
 # ? Second Normal Form (2NF)
 # * Must already be in 1NF
 # * No Partial Dependency (non-key attribute depending on part of a composite key)
-# * Solution: move partial dependency into a separate table, keep FK for relationship.
+# ~ Solution: move partial dependency into a separate table, keep FK for relationship.
 
 # ? Third Normal Form (3NF)
 # * Must already be in 2NF
@@ -248,6 +250,8 @@
 #! Lec 06: Summary - example
 
 # & Normalization Example – ITI Student Sheet
+
+# ^ first, convert ITI Sheet into zero normal form (raw data table - non normalized)
 
 # ? Zero Normal Form (0NF)
 # * All data stored in one big table (StudentNumber as PK).
@@ -270,7 +274,7 @@
 
 # ? Second Normal Form (2NF)
 # ~ Rule: Must be in 1NF + no Partial Dependency.
-# * Check composite keys:
+# ^ Check composite keys:
 # *   - StudentDept table → PK = (StudentID, DeptName)
 # *   - DeptDescription depends only on DeptName → Partial Dependency ❌
 # *   - AdmissionGrade, Comments depend on (StudentID, DeptName) → Full Dependency ✅
@@ -291,6 +295,7 @@
 # * Result: All non-key attributes depend directly on the key.
 
 # ? Final Tables in 3NF
+
 # * Student(StudentID, Name, Street, City, FacultyCode)
 # * StudentPhone(StudentID, Telephone)
 # * StudentDept(StudentID, DeptName, AdmissionGrade, Comments)
