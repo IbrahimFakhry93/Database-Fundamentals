@@ -93,29 +93,29 @@
 
 # ? DELETE Command
 # * Works on the record (row) level
-# * Syntax:
+# ^ Syntax:
 # *   DELETE FROM TableName WHERE condition;
 # * Without WHERE → deletes ALL rows in the table
 # * With WHERE → deletes only specific records
-# * Example:
+# ~ Example:
 # *   DELETE FROM Employees WHERE SSN = 101;
 
 # ? TRUNCATE Command
 # * Deletes ALL data from a table (no conditions allowed)
-# * Syntax:
+# ^ Syntax:
 # *   TRUNCATE TABLE TableName;
-# * Example:
+# ~ Example:
 # *   TRUNCATE TABLE Customers;
 # * Removes all rows but keeps the table structure
 
 # ? Key Differences
-# * DELETE:
+# ^ DELETE:
 # *   - DML command
 # *   - Can use WHERE to delete specific rows
 # *   - Can be rolled back (before COMMIT)
 # *   - Does not auto-commit
 # *   - Physical memory freed only after COMMIT
-# * TRUNCATE:
+# ^ TRUNCATE:
 # *   - DDL command
 # *   - Always deletes all rows (no WHERE allowed)
 # *   - Auto-commits (cannot be rolled back)
@@ -146,19 +146,19 @@
 # * [WHERE condition];
 
 # ? Example 1 – Select all columns
-# * Requirement: Display all data of Department table
+# ^ Requirement: Display all data of Department table
 # *   SELECT *
 # *   FROM Departments;
 # * → Returns all rows and all columns
 
 # ? Example 2 – Select specific columns
-# * Requirement: Display SSN, FirstName, DeptNo of employees
+# ^ Requirement: Display SSN, FirstName, DeptNo of employees
 # *   SELECT SSN, FirstName, DeptNo
 # *   FROM Employees;
 # * → Returns only the listed columns
 
 # ? Example 3 – Select with condition (WHERE)
-# * Requirement: Display data of department with a specific manager
+# ^ Requirement: Display data of department with a specific manager
 # *   SELECT *
 # *   FROM Departments
 # *   WHERE ManagerSSN = 101;
@@ -183,38 +183,38 @@
 # * Operators allow comparisons and logical combinations of conditions
 
 # ? Example 1 – Simple condition
-# * Requirement: Show all employees with salary > 1500
+# TODO Requirement: Show all employees with salary > 1500
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE Salary > 1500;
 
 # ? Example 2 – Multiple conditions with AND
-# * Requirement: Show first name of employees with salary between 1500 and 2500
+# TODO Requirement: Show first name of employees with salary between 1500 and 2500
 # *   SELECT FName
 # *   FROM Employees
 # *   WHERE Salary >= 1500 AND Salary <= 2500;
-# * → AND = both conditions must be true
+# ^ → AND = both conditions must be true
 
 # ? Example 3 – Using BETWEEN
-# * Same requirement as Example 2, but shorter syntax
+# TODO : Same requirement as Example 2, but shorter syntax
 # *   SELECT FName
 # *   FROM Employees
 # *   WHERE Salary BETWEEN 1500 AND 2500;
-# * → BETWEEN includes the boundary values (both 1500 and 2500 are inclusive)
+# ^ → BETWEEN includes the boundary values (both 1500 and 2500 are inclusive)
 
 # ? Example 4 – Multiple conditions with OR
-# * Requirement: Show SSN and FName of employees supervised by supervisor 101 or 102
+# TODO Requirement: Show SSN and FName of employees supervised by supervisor 101 or 102
 # *   SELECT SSN, FName
 # *   FROM Employees
 # *   WHERE SuperSSN = 101 OR SuperSSN = 102;
-# * → OR = at least one condition must be true
+# ^ → OR = at least one condition must be true
 
 # ? Example 5 – Using IN (multirow operator)
-# * Same requirement as Example 4, but shorter syntax
+# TODO, Same requirement as Example 4, but shorter syntax
 # *   SELECT SSN, FName
 # *   FROM Employees
 # *   WHERE SuperSSN IN (101, 102);
-# * → IN replaces multiple OR conditions on the same column
+# ^ → IN replaces multiple OR conditions on the same column
 
 # ? Operator Types
 # * Single-row operators → =, >, <, >=, <= (compare with one value)
@@ -235,7 +235,7 @@
 
 # ? Equal (=) Operator
 # * Used for comparing exact values
-# * Example:
+# ^ Example:
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE FName = 'Ahmed';
@@ -244,7 +244,7 @@
 # ? LIKE Operator
 # * Used when the exact value is not known
 # * Allows pattern matching in string comparisons
-# * Syntax:
+# ^ Syntax:
 # *   SELECT *
 # *   FROM TableName
 # *   WHERE ColumnName LIKE 'pattern';
@@ -255,14 +255,14 @@
 # * (Some DBMSs may use * and ? instead, but standard SQL uses % and _)
 
 # ? Example 1 – Second letter is 'O'
-# * Requirement: Show employees whose second letter of first name = 'O'
+# TODO Requirement: Show employees whose second letter of first name = 'O'
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE FName LIKE '_o%';
 # * → _ = first character (any), o = second character, % = rest of name
 
 # ? Example 2 – Handling spelling variations
-# * Requirement: Show employees named Ahmed/Ahmad (E or A in 4th position)
+# TODO Requirement: Show employees named Ahmed/Ahmad (E or A in 4th position)
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE FName LIKE 'Ahm_d';
