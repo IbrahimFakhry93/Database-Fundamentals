@@ -30,7 +30,7 @@
 # ^ Primary Key Constraint
 # *   - Ensures uniqueness + not null
 # *   - Each table must have one PK
-# *   - Example: Employee(SSN as PK)
+# ~   - Example: Employee(SSN as PK)
 
 # ^ Not Null Constraint
 # *   - Column must always have a value
@@ -39,20 +39,23 @@
 # ^ Unique Constraint
 # *   - Ensures values in a column are unique
 # *   - Used for candidate keys not chosen as PK
-# *   - Example: Employee(SSN unique, ID as PK)
+# ~   - Example: Employee(SSN unique, ID as PK)
 
 # ^ Foreign Key (Referential Integrity Constraint)
 # *   - FK = column in one table referencing PK in another
 # *   - Parent record = table with PK
 # *   - Child record = table with FK
+# ~   - Example: Employee(DeptNo FK) → Department(DeptNo PK)
 # *   - Insert Rule: insert parent first, then child
 # *   - Delete Rule: delete child first, then parent
-# *   - Prevents orphan records
-# *   - Example: Employee(DeptNo FK) → Department(DeptNo PK)
+#     ! Delete rule is used to prevent orphan records
+# ~   - Example:
+# *    - If a department is closed, we should delete employee record first (child)
+# *      then delete department record to avoid orphan record as employee record
 
 # ^ Check Constraint
 # *   - Custom validation rule
-# *   - Example: Salary BETWEEN 1000 AND 12000
+# ~   - Example: Salary BETWEEN 1000 AND 12000
 # *   - Prevents invalid/typo values
 
 # ? Summary
@@ -70,8 +73,8 @@
 
 # ? Definition
 # * DDL = Data Definition Language
-# * Commands responsible for the structure of database objects
-# * Used to create, edit, or delete schema objects (not for manipulating data)
+# * DDL are the commands responsible for the structure of database objects
+# * Used to create, edit, or delete schema objects (not for manipulating data itself)
 
 # ? Main DDL Commands
 # * CREATE → create new database objects (tables, views, etc.)
@@ -80,32 +83,32 @@
 # * TRUNCATE → remove all data from a table but keep its structure (discussed later)
 
 # ? CREATE TABLE
-# * Syntax:
+# ^ Syntax:
 # *   CREATE TABLE TableName (
 # *       ColumnName DataType [Constraint],
 # *       ColumnName DataType(Size) [Constraint],
 # *       ...
 # *   );
-# * Example:
+# ~ Example:
 # *   CREATE TABLE Students (
 # *       StudentID INT PRIMARY KEY,
 # *       Name VARCHAR(50) NOT NULL,
 # *       Country VARCHAR(30)
 # *   );
-# * → Creates table structure without data
+# ~ → Creates table structure without data
 
 # ? ALTER TABLE
-# * Add a new column:
+# ^ Add a new column:
 # *   ALTER TABLE Students ADD PostalCode VARCHAR(10);
-# * → Adds PostalCode column to Students table
-# * Remove a column:
+# ~ → Adds PostalCode column to Students table
+# ^ Remove a column:
 # *   ALTER TABLE Students DROP COLUMN Country;
-# * → Removes Country column from Students table
+# ~ → Removes Country column from Students table
 
 # ? DROP TABLE
-# * Syntax:
+# ^ Syntax:
 # *   DROP TABLE Students;
-# * → Deletes the Students table completely (structure + data)
+# ~ → Deletes the Students table completely (structure + data)
 
 # ? Key Notes
 # * CREATE → build new table
@@ -121,7 +124,7 @@
 
 # ? Definition
 # * DCL = Data Control Language
-# * Commands used to control access and privileges on database objects
+# * DCL are commands used to control access and privileges on database objects
 # * Two main commands: GRANT and REVOKE
 
 # ? Types of Privileges
@@ -136,7 +139,7 @@
 # ~   GRANT SELECT ON Employees TO Ahmed;
 # *       → Ahmed can only view (SELECT) data from Employees table
 # ~   GRANT ALL ON Department TO Mary, Ahmed;
-# *       → Mary and Ahmed can SELECT, INSERT, UPDATE, DELETE on Department
+# *       → Mary and Ahmed can SELECT, INSERT, UPDATE, DELETE on Department (grant all DML privileges)
 # ~   GRANT SELECT ON Employees TO Ahmed WITH GRANT OPTION;
 # *       → Ahmed can SELECT from Employees AND grant this privilege to other users
 

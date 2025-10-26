@@ -415,51 +415,56 @@
 # * Number of JOIN conditions = Number of tables – 1.
 
 # ? Example 1 – Department Manager (Employee + Department)
-# * Requirement: Show Employee’s First Name and Department Name (manager).
-# * Join Condition: Dept.ManagerSSN = Employee.SSN
+# ^ Requirement: Show Employee’s First Name and Department Name Manager.
+# ~ Join Condition: Dept.ManagerSSN = Employee.SSN
 # *   SELECT E.FName, D.DName
 # *   FROM Employees E, Departments D
 # *   WHERE D.ManagerSSN = E.SSN;
-# * → Displays each department with its manager’s name.
+# ~ → Displays each department with its manager’s name.
 
 # ? Example 2 – Employee’s Department
-# * Requirement: Show Employee’s First Name and Department Name (where they work).
-# * Join Condition: Employee.DeptNo = Department.DeptNo
+# ^ Requirement: Show Employee’s First Name and Department Name (where they work).
+# ~ Join Condition: Employee.DeptNo = Department.DeptNo
 # *   SELECT E.FName, D.DName
 # *   FROM Employees E, Departments D
 # *   WHERE E.DeptNo = D.DeptNo;
 # * → Displays each employee with the department they belong to.
-# * Note: If column names repeat, prefix with table name or alias (E.DeptNo, D.DeptNo).
+# ~ Note: If column names repeat, prefix with table name or alias (E.DeptNo, D.DeptNo).
 
 # ? Aliases
 # * Short names for tables to simplify queries.
-# * Syntax: TableName AS Alias OR TableName Alias
-# * Example: Employees E, Departments D
+# ^ Syntax: TableName AS Alias OR TableName Alias (without AS)
+# ~ Example: Employees E, Departments D
 
 # ? Equi Join
 # * Join condition uses the equality operator (=).
 # * Typically written in WHERE clause.
-# * Example: E.DeptNo = D.DeptNo
+# ~ Example: E.DeptNo = D.DeptNo
 
 # ? Inner Join (ANSI Syntax)
-# * Alternative to Equi Join, uses ON instead of WHERE.
+# ^ Alternative to Equi Join, uses INNER JOIN instead of (,) between table names
+# ^ uses ON instead of WHERE.
 # *   SELECT E.FName, D.DName
 # *   FROM Employees E
 # *   INNER JOIN Departments D
 # *   ON E.DeptNo = D.DeptNo;
-# * → Same result as Equi Join.
+# ~ → Same result as Equi Join.
 
 # ? Example 3 – Multi-table Join (Employee + Project + WorksFor)
-# * Requirement: Show Employee Name, Project Name, and Hours worked.
-# * Tables: Employees, Projects, WorksFor (M:N relationship table).
-# * Join Conditions:
-# *   Employees.SSN = WorksFor.ESSN
-# *   Projects.PNumber = WorksFor.PNO
+# ^ Requirement: Show Employee Name, Project Name, and Hours worked.
+# * Tables: Employees, Projects, WorksFor (M:N relationship table: junction table).
+# * 3 tables -> 2 join conditions, join condition are PK -FK relationship
+# *  so look up the ERD to figure out how to write the required join conditions
+# ^ Join Conditions:
+# !   Employees.SSN = WorksFor.ESSN
+# !   Projects.PNumber = WorksFor.PNO
+
 # *   SELECT E.FName, P.PName, W.Hours
-# *   FROM Employees E
-# *   INNER JOIN WorksFor W ON E.SSN = W.ESSN
-# *   INNER JOIN Projects P ON P.PNumber = W.PNO;
-# * → Displays each employee, the projects they work on, and hours worked.
+# *   FROM Employees, Projects, WorksFor
+# *   WHERE SSN = ESSN
+# *    AND PNumber = PNO
+
+# ~ → Displays each employee, the projects they work on, and hours worked.
 
 # ? Key Notes
 # * JOIN condition = PK–FK relationship.
@@ -487,7 +492,7 @@
 # *   FROM Employees E
 # *   LEFT OUTER JOIN Departments D
 # *   ON E.DeptNo = D.DeptNo;
-# * → Displays all employees, with department names if available (NULL if not).
+# ~ → Displays all employees, with department names if available (NULL if not).
 
 # ? RIGHT OUTER JOIN
 # * Returns all rows from the right table + matched rows from the left table.
@@ -497,7 +502,7 @@
 # *   FROM Employees E
 # *   RIGHT OUTER JOIN Departments D
 # *   ON E.DeptNo = D.DeptNo;
-# * → Displays all departments, with employee names if available (NULL if not).
+# ~ → Displays all departments, with employee names if available (NULL if not).
 
 # ? FULL OUTER JOIN
 # * Returns all rows from both tables:
@@ -536,21 +541,21 @@
 # *   - SSN (Primary Key)
 # *   - FName (Employee Name)
 # *   - SuperSSN (Supervisor’s SSN → FK referencing Employee.SSN)
-# * Requirement: Display each employee’s name with their supervisor’s name.
+# ^ Requirement: Display each employee’s name with their supervisor’s name.
 
 # ? SQL Implementation
 # *   SELECT E.FName AS EmployeeName,
 # *          S.FName AS SupervisorName
 # *   FROM Employees E, Employees S
 # *   WHERE E.SuperSSN = S.SSN;
-# * → E = alias for Employee copy (employee data)
-# * → S = alias for Supervisor copy (supervisor data)
+# ~ → E = alias for Employee copy (employee data)
+# ~ → S = alias for Supervisor copy (supervisor data)
 
 # ? Explanation
-# * The table is referenced twice:
+# ^ The table is referenced twice:
 # *   - First copy (E) → employee’s data
 # *   - Second copy (S) → supervisor’s data
-# * Join condition: E.SuperSSN = S.SSN
+# ! Join condition: E.SuperSSN = S.SSN
 # * Result: Each employee is listed with the name of their supervisor.
 
 # ? Key Notes
@@ -571,7 +576,7 @@
 # * Subquery is written inside parentheses ().
 
 # ? Example 1 – Salary greater than Ahmed Ali’s salary
-# * Requirement: Show employees whose salary > Ahmed Ali’s salary.
+# ^ Requirement: Show employees whose salary > Ahmed Ali’s salary.
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE Salary > (
@@ -579,15 +584,15 @@
 # *       FROM Employees
 # *       WHERE FName = 'Ahmed' AND LName = 'Ali'
 # *   );
-# * → Subquery returns Ahmed Ali’s salary, main query compares against it.
+# ~ → Subquery returns Ahmed Ali’s salary, main query compares against it.
 
 # ? Single-Row Operators
 # * =, >, <, >=, <=
 # * Compare against one value only.
-# * Example: Salary > (subquery returning one value)
+# ~ Example: Salary > (subquery returning one value)
 
 # ? Example 2 – Salary greater than ALL employees in Dept 10
-# * Requirement: Show employees whose salary > all salaries in DeptNo = 10.
+# ^ Requirement: Show employees whose salary > all salaries in DeptNo = 10.
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE Salary > ALL (
@@ -596,10 +601,10 @@
 # *       WHERE DeptNo = 10
 # *   );
 # * → ALL = compare against every value returned by subquery.
-# * → Employee must have salary greater than the maximum salary in Dept 10.
+# ~ → Employee must have salary greater than the maximum salary in Dept 10.
 
 # ? Example 3 – Salary greater than ANY employee in Dept 10
-# * Requirement: Show employees whose salary > at least one salary in DeptNo = 10.
+# ^ Requirement: Show employees whose salary > at least one salary in DeptNo = 10.
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE Salary > ANY (
@@ -607,8 +612,8 @@
 # *       FROM Employees
 # *       WHERE DeptNo = 10
 # *   );
-# * → ANY = compare against at least one value returned by subquery.
-# * → Employee must have salary greater than the minimum salary in Dept 10.
+# ~ → ANY = compare against at least one value returned by subquery.
+# ~ → Employee must have salary greater than the minimum salary in Dept 10.
 
 # ? Multi-Row Operators
 # * IN → checks if value exists in a list of values
@@ -616,7 +621,7 @@
 # * ANY → condition must be true for AT LEAST one value returned
 
 # ? Key Notes
-# * Subqueries can return:
+# ^ Subqueries can return:
 # *   - Single value (used with single-row operators)
 # *   - Multiple values (used with IN, ALL, ANY)
 # * ALL → stricter (compare with maximum/minimum depending on operator)
