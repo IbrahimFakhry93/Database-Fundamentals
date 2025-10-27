@@ -443,7 +443,7 @@
 
 # ? Inner Join (ANSI Syntax)
 # ^ Alternative to Equi Join, uses INNER JOIN instead of (,) between table names
-# ^ uses ON instead of WHERE.
+# ^ uses ON instead of WHERE clause
 # *   SELECT E.FName, D.DName
 # *   FROM Employees E
 # *   INNER JOIN Departments D
@@ -628,6 +628,7 @@
 # * ANY → looser (compare with at least one value)
 # * IN → shorthand for multiple OR conditions
 
+# * Sub query (inside parentheses) will run first then the outer query
 
 # *=============================================================================================
 
@@ -645,21 +646,21 @@
 # *   SELECT MAX(Salary) AS MaxSalary,
 # *          MIN(Salary) AS MinSalary
 # *   FROM Employees;
-# * → Returns highest and lowest salary values.
+# ~ → Returns highest and lowest salary values.
 
 # ? Example 2 – Counting Employees vs Salaries
 # ^ Requirement: Count total employees and count of salaries entered.
 # *   SELECT COUNT(SSN) AS Employees,
 # *          COUNT(Salary) AS Salaries
 # *   FROM Employees;
-# * → COUNT(SSN) = number of employees (12)
-# * → COUNT(Salary) = number of non-null salaries (11)
+# ~ → COUNT(SSN) = number of employees (12)
+# ~ → COUNT(Salary) = number of non-null salaries (11)
 
 # ? Example 3 – Average Salary
 # ^ Requirement: Display average salary.
 # *   SELECT AVG(Salary) AS AvgSalary
 # *   FROM Employees;
-# * → Calculates total of salaries ÷ number of non-null salaries (ignores missing values).
+# ~ → Calculates total of salaries ÷ number of non-null salaries (ignores missing values).
 
 # ? Example 4 – Sum of Salaries
 # ^ Requirement: Display total salaries paid.
@@ -687,11 +688,11 @@
 # * Used together with aggregate functions (AVG, MAX, MIN, SUM, COUNT).
 
 # ? Example 1 – Average Salary per Department
-# * Requirement: Display average salary for each department.
+# ^ Requirement: Display average salary for each department.
 # *   SELECT DeptNo, AVG(Salary) AS AvgSalary
 # *   FROM Employees
 # *   GROUP BY DeptNo;
-# * → Groups employees by DeptNo, then calculates average salary for each group.
+# ~ → Groups employees by DeptNo, then calculates average salary for each group.
 
 # ? Example 2 – Add Condition with HAVING
 # * Requirement: Show average salary for each department, but only if MAX(Salary) > 1800.
@@ -699,7 +700,7 @@
 # *   FROM Employees
 # *   GROUP BY DeptNo
 # *   HAVING MAX(Salary) > 1800;
-# * → Filters groups: only departments with maximum salary > 1800 are displayed.
+# ~ → Filters groups: only departments with maximum salary > 1800 are displayed.
 
 # ? Key Notes
 # * WHERE → filters rows before grouping.
