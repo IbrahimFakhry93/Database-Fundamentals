@@ -63,19 +63,25 @@
 # * Acts like a "phone book" → values are sorted with pointers to actual rows.
 # * Logical structure maintained by DBMS, based on one or more columns.
 
+# ? Advantage of using indexes:
+# * They are used to speed up the retrieval of records in response to certain search conditions
+# * May be defined on multiple columns
+# * Can be created by the user or by the DBMS (DBMS usually create index for primary key)
+# * They are used and maintained by the DBMS
+
 # ? Why Use Indexes?
-# * Problem 1: Data is unsorted in tables.
-# * Problem 2: Data is scattered in physical memory (not contiguous).
-# * Without index → DBMS performs a Full Table Scan (slow).
+# ! Problem 1: Data is unsorted in tables.
+# ! Problem 2: Data is scattered in physical memory (not contiguous).
+# ^ Without index → DBMS performs a Full Table Scan (slow).
 # * With index → DBMS searches ordered index, then jumps directly to rows.
 
 # ? Example
-# * Requirement: Frequently search Suppliers by Location.
-# * Index created on Location column:
+# TODO Requirement: Frequently search Suppliers by Location.
+# ^ Index created on Location column:
 # *   CREATE INDEX idx_location
 # *   ON Suppliers(Location);
-# * → Index stores sorted Location values + pointers to row addresses.
-# * Searching "London" → DBMS checks index, retrieves only matching rows.
+# ^ → Index stores sorted Location values + pointers to row addresses.
+# ~ Searching "London" → DBMS checks index, retrieves only matching rows.
 
 # ? Advantages
 # * Speeds up SELECT queries (especially with WHERE, JOIN, ORDER BY).
@@ -85,15 +91,15 @@
 
 # ? Disadvantages
 # * Slows down DML (INSERT, UPDATE, DELETE).
-# * Reason: Data must be updated in both table and index.
+# ! Reason: Data must be updated in both table and index. and also sorted in index table
 # * More storage overhead (index is an extra object).
 
 # ? Guidelines for Creating Indexes
-# * Create index when:
+# ^ Create index when:
 # *   - Column is frequently used in WHERE or JOIN conditions.
 # *   - Table is queried often for retrieval.
 # *   - Column has many NULLs (index avoids scanning all rows).
-# * Avoid index when:
+# ! Avoid index when:
 # *   - Table is updated frequently (high DML cost).
 # *   - Column values are rarely used in search conditions.
 
