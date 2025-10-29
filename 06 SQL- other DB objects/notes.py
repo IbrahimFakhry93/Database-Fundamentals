@@ -13,25 +13,45 @@
 # ^ Syntax:
 # *   CREATE VIEW ViewName [(Column1, Column2, ...)] AS
 # *   SELECT ...
+# ~ SELECT here acts as subquery
+
 # ^ Example:
+# TODO : Create a view to display employee names and total hours employee worked on a project (display project name also)
 # *   CREATE VIEW VW_Work_Hours AS
 # *   SELECT E.FName, E.LName, P.PName, W.Hours
 # *   FROM Employees E
 # *   JOIN WorksOn W ON E.SSN = W.ESSN
 # *   JOIN Projects P ON P.PNumber = W.PNO;
 
-# ? Usage
-# * Query a View like a normal table (data base object):
-# *   SELECT * FROM VW_Work_Hours;
+#! other syntax:
+# *   CREATE VIEW VW_Work_Hours AS
+# *   SELECT E.FName, E.LName, P.PName, W.Hours
+# *   FROM Employees E, Projects P, WorksOn W
+# *   Where E.SSN = W.ESSN
+# *   AND P.PNumber = W.PNO;
 
-# ? WITH CHECK OPTION
+# ^ note:
+# * to get these info: E.FName, E.LName, P.PName, W.Hours
+# * so we used three tables: Employees E, Projects P, WorksOn W
+# * so if a user needs these info:  E.FName, E.LName, P.PName, W.Hours
+# * he will need access to these three tables: Employees E, Projects P, WorksOn W
+# * which it's not logical, what if I don't want the user to look up other employees salary
+# * so we create customized view to restrict the shown data
+
+# ? Usage
+# ^ Query a View like a normal table (data base object):
+# * SELECT fname,lname,hours FROM VW_Work_Hours
+# ? or:
+# * SELECT * FROM VW_Work_Hours;
+
+# ? Create views WITH CHECK OPTION
 # * Ensures DML operations on the View must satisfy its WHERE condition.
 # ^ Example:
 # *   CREATE VIEW Suppliers AS
 # *   SELECT * FROM Supplier
 # *   WHERE Status > 15
 # *   WITH CHECK OPTION;
-# * → Prevents inserting/updating rows that don’t meet Status > 15.
+# ! → Prevents inserting/updating rows that don’t meet Status > 15.
 
 # ? DML on Views
 # * Views have no data of their own → DML is applied to base tables.
@@ -42,10 +62,19 @@
 # * CREATE OR REPLACE VIEW → updates definition if View already exists.
 # * DROP VIEW ViewName → removes a View.
 
+# ^ Example:
+# TODO : Create a view to display employee names and total hours employee
+# TODO : worked on a project (display project name also) but exclusively on employees in Department number 5
+# *   CREATE OR REPLACE VIEW VW_Work_Hours AS
+# *   SELECT E.FName, E.LName, P.PName, W.Hours
+# *   FROM Employees E, Projects P, WorksOn W
+# *   Where E.SSN = W.ESSN
+# *   AND P.PNumber = W.PNO AND Dno =5
+
 # ? Advantages
-# * Restrict data access → limit what users can see/edit.
+# * Restrict data access → limit what users can see/edit. (DBMS helps achieve security)
 # * Simplify complex queries → save them as Views for reuse.
-# * Provide data independence → hide sensitive columns (e.g., salaries).
+# * Provide data independence → hide sensitive columns (e.g., salaries). not necessary to display emp's salary while displaying its name,
 # * Present different perspectives → same data shown differently for different roles.
 
 # ? Types of Views

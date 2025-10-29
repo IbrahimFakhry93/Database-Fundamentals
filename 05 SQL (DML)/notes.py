@@ -91,6 +91,8 @@
 
 # & SQL – DELETE vs TRUNCATE
 
+# ^ Truncate is functionally identical to DELETE statement with no WHERE clause
+
 # ? DELETE Command
 # * Works on the record (row) level
 # ^ Syntax:
@@ -124,6 +126,7 @@
 # ? COMMIT and ROLLBACK
 # * COMMIT → permanently saves changes to physical memory
 # * ROLLBACK → undo changes since last COMMIT
+
 # * DELETE → changes can be rolled back until COMMIT
 # * TRUNCATE → auto-committed, cannot be rolled back
 
