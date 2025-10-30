@@ -242,20 +242,26 @@
 # *   SELECT *
 # *   FROM Employees
 # *   WHERE FName = 'Ahmed';
-# * → Works only when the exact spelling/value is known
+# ~ → Works only when the exact spelling/value is known
 
 # ? LIKE Operator
 # * Used when the exact value is not known
-# * Allows pattern matching in string comparisons
-# ^ Syntax:
+# ^ Allows pattern matching in string comparisons
+# ~ Syntax:
 # *   SELECT *
 # *   FROM TableName
 # *   WHERE ColumnName LIKE 'pattern';
 
-# ? Pattern Symbols
+# ? Pattern Symbols: wildcards
 # * % (percent) → replaces zero or more characters
 # * _ (underscore) → replaces exactly one character
 # * (Some DBMSs may use * and ? instead, but standard SQL uses % and _)
+
+# ^ % → matches any sequence of characters (including none)
+
+# ^ _ → matches exactly one character
+
+#^ LIKE is case‑sensitive
 
 # ? Example 1 – Second letter is 'O'
 # TODO Requirement: Show employees whose second letter of first name = 'O'
@@ -281,6 +287,12 @@
 # * _ → wildcard for a single character
 # * Useful for partial matches, patterns, or handling spelling variations
 
+#^ LIKE in PostgreSQL is case‑sensitive → 'Ahm_d' matches Ahmad but not ahmad.
+
+#! ILike
+#^ ILIKE is the case‑insensitive version → it ignores case, 
+#^ so it matches both uppercase and lowercase.
+select e."Fname" from employee e where e."Fname" ILike 'Ahm_d'
 # *==================================================================================
 
 #! Lec 07: Alias
@@ -415,7 +427,11 @@
 # ? Purpose
 # * JOIN is used to retrieve data from more than one table.
 # * It links rows across tables using related columns (usually PK–FK relationships).
+#*  These related columns are written in a join condition, written after where clause
 # * Number of JOIN conditions = Number of tables – 1.
+
+# ^ Inner Join Definition:
+# * INNER JOIN / EQUI-JOIN → returns only matched records (rows with values in both tables).
 
 # ? Example 1 – Department Manager (Employee + Department)
 # ^ Requirement: Show Employee’s First Name and Department Name Manager.
@@ -564,7 +580,7 @@
 # ? Key Notes
 # * Self Join is essential for hierarchical/recursive relationships.
 # * Always use aliases to avoid ambiguity (same column names in both copies).
-# * Output can show pairs like:
+# ^ Output can show pairs like:
 # *   Employee: Ahmed → Supervisor: Moheb
 # *   Employee: Moheb → Supervisor: Ahmed
 
@@ -706,13 +722,18 @@
 # ~ → Filters groups: only departments with maximum salary > 1800 are displayed.
 
 # ? Key Notes
-# * WHERE → filters rows before grouping.
-# * HAVING → filters groups after aggregation.
+# ! WHERE → filters rows before grouping.
+# ! HAVING → filters groups after aggregation.
+
 # * GROUP BY can use multiple columns (e.g., DeptNo, JobTitle).
 # * Aggregate functions (AVG, MAX, MIN, SUM, COUNT) are often used with GROUP BY.
 # * Without GROUP BY → aggregate functions apply to the entire table.
 
+#^ A normal WHERE filters individual rows before grouping.
+#^ But here you want to filter entire groups (departments) based on an aggregate (MAX(Salary)).
+#^ SQL has a special clause for that is called (Having) — it comes after GROUP BY
 
+#& when we have a condition which is based on aggregate function we use clause (having)
 # *=============================================================================================
 
 #! Lec 16: SELECT – Conclusion
