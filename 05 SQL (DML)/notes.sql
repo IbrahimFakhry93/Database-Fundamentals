@@ -131,7 +131,73 @@ select e."Fname" ,d."Dname"  from  employee e left outer join department d on e.
 select e."Fname" as "Employee" ,s."Fname" as "Supervisor"  from employee e ,employee s where e."Superssn" = s."SSN" 
 
 --*=======================================================================================================================
-
 -- ! Sub_Queries:
 
-select e."Fname" from employee e;
+select e."Fname", e."Salary"  from employee e where e."Salary" > (select e."Salary" from employee e where e."Fname" = 'Ahmed' and e."Lname" ='Ali' )
+
+
+select e."Fname" from employee e where e."Salary"  > all (select e."Salary" from employee e where e."Dno" =10)
+
+select e."Fname" from employee e where e."Salary"  > any (select e."Salary" from employee e where e."Dno" =10)
+
+--^ ask chatgpt the difference between all and any
+
+--& Comparison of ALL and ANY Operators in SQL
+
+--? General Idea
+--* Both ALL and ANY are used with comparison operators (>, <, =, etc.).
+--* They compare a value against a set (often a subquery result).
+--* The difference lies in how the comparison is evaluated across the set.
+
+--? ALL
+--* Condition must be TRUE for **every value** in the set.
+--* Think: "value satisfies condition for all rows."
+--* Example: salary > ALL (SELECT salary FROM interns)
+   → TRUE only if salary is greater than the highest intern salary.
+
+--? ANY (or SOME)
+--* Condition must be TRUE for **at least one value** in the set.
+--* Think: "value satisfies condition for at least one row."
+--* Example: salary > ANY (SELECT salary FROM interns)
+   → TRUE if salary is greater than the lowest intern salary.
+
+--? Key Differences
+--* ALL = stricter, requires condition to hold for every element.
+--* ANY = looser, requires condition to hold for at least one element.
+--* With equality (=):
+   - col = ALL(subquery) → TRUE only if all values are equal to col.
+   - col = ANY(subquery) → TRUE if col matches at least one value.
+
+--? Key Learning Points
+--* Use ALL when you want to compare against the maximum or minimum implicitly.
+--* Use ANY when you want to check if a condition holds for at least one match.
+--* Often paired with >, <, =, <> to express flexible conditions.
+
+--*=======================================================================================================================
+
+-- ! Aggregate function:
+
+select max(e."Salary") as "max sal", min(e."Salary" ) as "min sal" from employee e;
+
+
+select count(e."SSN") as "emp", count(e."Salary") from employee e;
+
+--*=======================================================================================================================
+
+--! Group by, having
+
+select avg(e."Salary" ) as "Avg Sal", e."Dno" from employee e group by e."Dno" ;
+
+
+select avg(e."Salary" ) as "Avg Sal", e."Dno" from employee e group by e."Dno"  having max(e."Salary" ) > 1800
+
+
+--*=======================================================================================================================
+
+--! SQL Conclusion:
+
+
+select d."Dname" , max(e."Salary" ) as "max_sal" from employee e ,department d where e."Dno" = d."Dno" group by d."Dno" having avg(e."Salary" ) > 1200 order by "Dname"  ;
+
+
+

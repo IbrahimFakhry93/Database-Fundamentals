@@ -768,3 +768,40 @@ select e."Fname" from employee e where e."Fname" ILike 'Ahm_d'
 # * Aliases (AS) make aggregate results readable (e.g., AS MaxSalary).
 # * ORDER BY must use columns available in GROUP BY or SELECT.
 # * Anything displayed in SELECT or used in ORDER BY must be part of GROUP BY when grouping is applied.
+
+
+#*======================================================================
+
+#! important
+
+#! Logical SQL Execution Order
+
+#? General Concept
+#* SQL does not execute clauses in the order you write them.
+#* Instead, it follows a logical sequence of steps.
+
+#? Execution Steps
+#* FROM / JOIN → build the raw dataset.
+#* WHERE → filter rows (only on raw columns, not aggregates or window functions).
+#* GROUP BY → group rows if needed.
+#* HAVING → filter groups.
+#* WINDOW functions (e.g., RANK()) → calculated after WHERE/HAVING, on the final row set.
+#* SELECT → return chosen columns (including window function results).
+#* ORDER BY → sort the final output.
+#* LIMIT / OFFSET → trim rows.
+
+#? Why This Matters
+#* RANK() is a window function, so it’s only available after step 5.
+#* WHERE filtering happens at step 2.
+#* That’s why you cannot write:
+  # WHERE rank_salary <= 2
+  # in the same query — because rank_salary doesn’t exist yet at that stage.
+
+#? The Trick
+#* Wrap your ranked query in a subquery or CTE → this turns the ranked result set into a “virtual table.”
+#* Then you can filter on rank_salary in the outer query, because now it’s just a normal column.
+
+#? Hint for Practice
+#* Think of it as two passes:
+  # 1. First pass → assign ranks.
+  # 2. Second pass → filter on those ranks.

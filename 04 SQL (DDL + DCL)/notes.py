@@ -34,7 +34,7 @@
 
 # ^ Not Null Constraint
 # *   - Column must always have a value
-# *   - Mandatory but not necessarily unique
+# *   - Input value is mandatory or required but not necessarily unique
 
 # ^ Unique Constraint
 # *   - Ensures values in a column are unique
